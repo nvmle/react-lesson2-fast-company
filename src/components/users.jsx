@@ -16,12 +16,9 @@ const Users = () => {
   };
 
   const handleDelete = (id) => {
-    const deletingUser = users.findIndex((user) => {
-      return user._id === id;
+    const newUsers = users.filter((user) => {
+      return !(user._id === id);
     });
-    const usersAfter = users.slice(deletingUser + 1, users.length + 1);
-    const usersBefore = users.splice(0, deletingUser);
-    const newUsers = [...usersBefore, ...usersAfter];
     setUsers(newUsers);
   };
 
