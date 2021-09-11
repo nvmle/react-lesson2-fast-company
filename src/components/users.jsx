@@ -29,14 +29,6 @@ const Users = ({ onDelete, users, onToggleBookMark }) => {
       </tbody>
     </table>
   );
-
-  // return (
-  //   <>
-  //     {users.map((user) => {
-  //       return <User key={user._id} onDelete={onDelete} {...user} />;
-  //     })}
-  //   </>
-  // );
 };
 
 export default Users;

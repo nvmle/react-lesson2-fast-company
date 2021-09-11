@@ -15,21 +15,6 @@ const App = () => {
   };
 
   const handleToggleBookMark = (userId, status) => {
-    // const newUsers = users.map((user) => {
-    //   if (user._id === userId) {
-    //     user.status = !user.status;
-    //   }
-    //   return user;
-    // });
-
-    // // setUsers(
-    // //   users.map((user) => {
-    // //     console.log(user.status);
-    // //     return user._id === userId ? (user.status = user.status) : user;
-    // //   })
-    // // );
-    // setUsers(newUsers);
-
     setUsers(
       users.map((user) => {
         if (user._id === userId) {
