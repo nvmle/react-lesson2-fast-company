@@ -14,11 +14,11 @@ const App = () => {
     );
   };
 
-  const handleToggleBookMark = (userId, status) => {
+  const handleToggleBookMark = (userId) => {
     setUsers(
       users.map((user) => {
         if (user._id === userId) {
-          user.status = !user.status;
+          user.bookmark = !user.bookmark;
         }
         return user;
       })
