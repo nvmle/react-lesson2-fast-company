@@ -15,7 +15,7 @@ const Users = ({ users: allUsers, ...rest }) => {
 
   useEffect(() => {
     api.professions.fetchAll().then((data) => {
-      console.log(data);
+      // console.log(data);
       setProfessions(data);
     });
   }, []);
@@ -32,9 +32,25 @@ const Users = ({ users: allUsers, ...rest }) => {
     setCurrentPage(pageIndex);
   };
 
-  const filteredUsers = selectedProf
-    ? allUsers.filter((user) => user.profession === selectedProf)
-    : allUsers;
+  const filterUsers = () => {
+    const newUsers = allUsers.filter((user) => {
+      const userProfProps = Object.entries(user.profession);
+      const selectedProfProps = Object.entries(selectedProf);
+      let status = true;
+
+      if (userProfProps.length === selectedProfProps.length) {
+        for (let i = 0; i < userProfProps.length; i++) {
+          const trustyKey = userProfProps[i][0] === selectedProfProps[i][0];
+          const trustyValue = userProfProps[i][1] === selectedProfProps[i][1];
+          status = status && trustyKey && trustyValue;
+        }
+      }
+      return status ? user : null;
+    });
+    return newUsers;
+  };
+
+  const filteredUsers = selectedProf ? filterUsers() : allUsers;
 
   const count = Array.isArray(filteredUsers) && filteredUsers.length;
   const users = paginate(filteredUsers, currentPage, pageSize);
