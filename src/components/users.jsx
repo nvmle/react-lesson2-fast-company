@@ -14,7 +14,10 @@ const Users = ({ users: allUsers, ...rest }) => {
   const pageSize = 2;
 
   useEffect(() => {
-    api.professions.fetchAll().then((data) => setProfessions(data));
+    api.professions.fetchAll().then((data) => {
+      console.log(data);
+      setProfessions(data);
+    });
   }, []);
 
   useEffect(() => {
@@ -33,7 +36,7 @@ const Users = ({ users: allUsers, ...rest }) => {
     ? allUsers.filter((user) => user.profession === selectedProf)
     : allUsers;
 
-  const count = filteredUsers.length;
+  const count = Array.isArray(filteredUsers) && filteredUsers.length;
   const users = paginate(filteredUsers, currentPage, pageSize);
 
   const clearFilter = () => {
@@ -88,8 +91,7 @@ const Users = ({ users: allUsers, ...rest }) => {
   );
 };
 Users.propTypes = {
-  users: PropTypes.array.isRequired,
-  rest: PropTypes.array
+  users: PropTypes.array
 };
 
 export default Users;
