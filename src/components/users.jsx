@@ -7,13 +7,30 @@ import api from "../API";
 import SearchStatus from "./searchStatus";
 import UsersTable from "./usersTable";
 import _ from "lodash";
+import { useParams, useLocation } from "react-router";
+import UserPage from "./userPage";
+import query from "query-string";
 
 const Users = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [professions, setProfessions] = useState();
   const [selectedProf, setSelectedProf] = useState();
-  const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
-  const pageSize = 5;
+
+  const params = useParams();
+  const location = useLocation();
+
+  const search = query.parse(location.search);
+
+  if (!location.search) {
+    search.sortBy = "name";
+    search.order = "asc";
+  }
+
+  const [sortBy, setSortBy] = useState({
+    path: search.sortBy,
+    order: search.order
+  });
+  const pageSize = 8;
 
   const [users, setUsers] = useState();
 
@@ -79,6 +96,11 @@ const Users = () => {
     const clearFilter = () => {
       setSelectedProf();
     };
+
+    if (params.userId) {
+      return <UserPage />;
+    }
+
     return (
       <div className="d-flex">
         {professions && (

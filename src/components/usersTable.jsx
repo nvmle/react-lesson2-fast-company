@@ -1,7 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-// import TableHeader from "./tableHeader";
-// import TableBody from "./tableBody";
 import BookMark from "./bookmark";
 import QualitiesList from "./qualitiesList";
 import Table from "./table";
@@ -11,8 +9,7 @@ const UsersTable = ({
   onSort,
   selectedSort,
   onToggleBookMark,
-  onDelete,
-  ...rest
+  onDelete
 }) => {
   const columns = {
     name: { path: "name", name: "Имя" },
