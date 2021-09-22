@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import api from "../API";
+import _ from "lodash";
+import { useLocation } from "react-router";
+import query from "query-string";
 import Pagination from "./pagination";
 import { paginate } from "../utils/paginate";
 import GroupList from "./groupList";
-import api from "../API";
 import SearchStatus from "./searchStatus";
 import UsersTable from "./usersTable";
-import _ from "lodash";
-import { useParams, useLocation } from "react-router";
-import UserPage from "./userPage";
-import query from "query-string";
 
-const Users = () => {
+const UsersList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [professions, setProfessions] = useState();
   const [selectedProf, setSelectedProf] = useState();
 
-  const params = useParams();
   const location = useLocation();
 
   const search = query.parse(location.search);
@@ -97,10 +95,6 @@ const Users = () => {
       setSelectedProf();
     };
 
-    if (params.userId) {
-      return <UserPage />;
-    }
-
     return (
       <div className="d-flex">
         {professions && (
@@ -141,8 +135,8 @@ const Users = () => {
   }
   return "Loading...";
 };
-Users.propTypes = {
+UsersList.propTypes = {
   users: PropTypes.array
 };
 
-export default Users;
+export default UsersList;
