@@ -9,11 +9,13 @@ import { paginate } from "../utils/paginate";
 import GroupList from "./groupList";
 import SearchStatus from "./searchStatus";
 import UsersTable from "./usersTable";
+import Search from "./search";
 
 const UsersList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [professions, setProfessions] = useState();
   const [selectedProf, setSelectedProf] = useState();
+  const [searchData, setSearchData] = useState("");
 
   const location = useLocation();
 
@@ -68,6 +70,7 @@ const UsersList = () => {
   }, [selectedProf]);
 
   const handleProfessionSelect = (item) => {
+    setSearchData("");
     setSelectedProf(item);
   };
 
@@ -79,13 +82,23 @@ const UsersList = () => {
     setSortBy(item);
   };
 
+  const handleChange = (e) => {
+    setSelectedProf();
+    setSearchData(e.target.value);
+  };
   if (users) {
+    // if (!(searchData === "")) {
+    //   const searchedUsers = users.filter((user) =>
+    //     user.name.toLowerCase().includes(searchData)
+    //   );
+    //   console.log(searchedUsers);
+    // }
     const filteredUsers = selectedProf
       ? users.filter(
           (user) =>
             JSON.stringify(user.profession) === JSON.stringify(selectedProf)
         )
-      : users;
+      : users.filter((user) => user.name.toLowerCase().includes(searchData));
 
     const count = Array.isArray(filteredUsers) && filteredUsers.length;
     const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order]);
@@ -112,6 +125,8 @@ const UsersList = () => {
         )}
         <div className="d-flex flex-column">
           <SearchStatus length={count} />
+          <Search value={searchData} onChange={handleChange} />
+
           {count > 0 && (
             <UsersTable
               users={usersCrop}
