@@ -9,7 +9,6 @@ import { paginate } from "../utils/paginate";
 import GroupList from "./groupList";
 import SearchStatus from "./searchStatus";
 import UsersTable from "./usersTable";
-import Search from "./search";
 
 const UsersList = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -67,7 +66,7 @@ const UsersList = () => {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [selectedProf]);
+  }, [selectedProf, searchData]);
 
   const handleProfessionSelect = (item) => {
     setSearchData("");
@@ -82,23 +81,19 @@ const UsersList = () => {
     setSortBy(item);
   };
 
-  const handleChange = (e) => {
-    setSelectedProf();
+  const handleChangeSearch = (e) => {
+    setSelectedProf(undefined);
     setSearchData(e.target.value);
   };
   if (users) {
-    // if (!(searchData === "")) {
-    //   const searchedUsers = users.filter((user) =>
-    //     user.name.toLowerCase().includes(searchData)
-    //   );
-    //   console.log(searchedUsers);
-    // }
-    const filteredUsers = selectedProf
+    const filteredUsers = searchData
+      ? users.filter((user) => user.name.toLowerCase().includes(searchData))
+      : selectedProf
       ? users.filter(
           (user) =>
             JSON.stringify(user.profession) === JSON.stringify(selectedProf)
         )
-      : users.filter((user) => user.name.toLowerCase().includes(searchData));
+      : users;
 
     const count = Array.isArray(filteredUsers) && filteredUsers.length;
     const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order]);
@@ -118,14 +113,20 @@ const UsersList = () => {
               onItemSelect={handleProfessionSelect}
             />
             <button onClick={clearFilter} className="btn btn-secondary mt-2">
-              {" "}
               Очистить
             </button>
           </div>
         )}
         <div className="d-flex flex-column">
           <SearchStatus length={count} />
-          <Search value={searchData} onChange={handleChange} />
+          <input
+            type="text"
+            className="w-100 mx-auto"
+            name="searchData"
+            value={searchData}
+            onChange={handleChangeSearch}
+            placeholder="Search..."
+          ></input>
 
           {count > 0 && (
             <UsersTable
