@@ -26,7 +26,7 @@ const qualities = {
     color: "info"
   },
   uncertain: {
-    _id: "67rdca3eeb7f6fgeed471102",
+    _id: "67rdca3eeb7f6fgeed471103",
     name: "Неуверенный",
     color: "dark"
   }
@@ -156,7 +156,6 @@ const getById = (id) =>
       resolve(users.find((user) => user._id === id));
     }, 1000);
   });
-
 export default {
   fetchAll,
   getById
