@@ -14,9 +14,11 @@ const UserPage = ({ userId }) => {
     });
   }, []);
 
-  const handleAllUsers = () => {
-    history.push("/users");
+  const handleEditUser = () => {
+    history.push(`/users/${userId}/edit`);
   };
+
+  console.log("user", user);
 
   if (user) {
     return (
@@ -26,7 +28,7 @@ const UserPage = ({ userId }) => {
         <Qualities qualities={user.qualities} />
         <h4>Встретился, раз: {user.completedMeetings}</h4>
         <h3>Рейтинг: {user.rate}</h3>
-        <button onClick={handleAllUsers}>Все пользователи</button>
+        <button onClick={handleEditUser}>Изменить</button>
       </>
     );
   }
