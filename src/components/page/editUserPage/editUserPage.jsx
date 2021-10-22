@@ -44,7 +44,7 @@ const EditUserPage = ({ userId }) => {
     return Object.keys(errors).length === 0;
   };
 
-  // const isValid = Object.keys(errors).length === 0;
+  const isValid = Object.keys(errors).length === 0;
 
   const validateConfig = {
     name: { isRequired: { message: "Имя обязательнао для заполнения" } },
@@ -62,9 +62,6 @@ const EditUserPage = ({ userId }) => {
   };
 
   const editUserData = () => {
-    console.log("data from edit", data);
-    console.log("data.profession typeof", typeof data.profession);
-
     const professionsArray =
       !Array.isArray(professions) && typeof professions === "object"
         ? Object.keys(professions).map((profession) => ({
@@ -82,16 +79,31 @@ const EditUserPage = ({ userId }) => {
           }))
         : qualities;
 
-    console.log("qualitiesArray", qualitiesArray);
-
     let userData = {};
+
+    const userQualities =
+      Object.keys(data.qualities[0]).length > 2
+        ? data.qualities
+        : data.qualities.map((userQualitie) => {
+            console.log(
+              qualitiesArray.filter(
+                (qualitie) => qualitie._id === userQualitie.value
+              )[0]
+            );
+
+            return qualitiesArray.filter(
+              (qualitie) => qualitie._id === userQualitie.value
+            )[0];
+          });
+    console.log("userQualities", userQualities);
 
     userData = {
       ...data,
       profession:
         typeof data.profession === "object"
           ? data.profession
-          : professionsArray.filter((prof) => prof._id === data.profession)[0]
+          : professionsArray.filter((prof) => prof._id === data.profession)[0],
+      qualities: userQualities
     };
 
     return userData;
@@ -104,10 +116,10 @@ const EditUserPage = ({ userId }) => {
 
     // add
     const edituserdata = editUserData();
-    console.log("edituserdata", edituserdata);
+    // console.log("data from editUserData", edituserdata);
 
     const newData = api.users.update(userId, edituserdata);
-    console.log("newData api", newData);
+    console.log("updated api", newData);
 
     //
 
@@ -175,7 +187,7 @@ const EditUserPage = ({ userId }) => {
               <button
                 // type="button"
                 onClick={handleSubmit}
-                //   disabled={!isValid}
+                disabled={!isValid}
                 className="btn btn-primary w-100 mx-auto"
               >
                 Обновить
