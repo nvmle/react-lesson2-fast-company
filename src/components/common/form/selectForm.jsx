@@ -23,6 +23,8 @@ const SelectForm = ({
   };
 
   const handleChange = ({ target }) => {
+    console.log("target selectForm ", target.value);
+
     onChange({ name: target.name, value: target.value });
   };
 

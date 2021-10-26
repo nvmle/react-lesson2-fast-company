@@ -114,20 +114,12 @@ const EditUserPage = ({ userId }) => {
     const isValid = validate();
     if (!isValid) return;
 
-    // add
     const edituserdata = editUserData();
-    // console.log("data from editUserData", edituserdata);
 
     const newData = api.users.update(userId, edituserdata);
     console.log("updated api", newData);
 
-    //
-
-    // console.log(data);
-
-    // add
-    history.push(`/users/${userId}`);
-    //
+    history.replace(`/users/${userId}`);
   };
 
   //   const handleUpdate = () => {
@@ -137,11 +129,23 @@ const EditUserPage = ({ userId }) => {
   //     history.push(`/users/${userId}`);
   //   };
 
+  const handleGoBack = () => {
+    history.push(`/users/${userId}`);
+  };
+
   if (data) {
     return (
       <div className="constainer mt-5">
         <div className="row">
           <div className="col-md-6 offset-md-3 shadow p-4">
+            <button
+              type="button"
+              className="btn btn-primary mb-4"
+              onClick={handleGoBack}
+            >
+              <i className="bi bi-arrow-left m-1" />
+              Назад
+            </button>
             <form onSubmit={handleSubmit}>
               <TextField
                 label="Имя"

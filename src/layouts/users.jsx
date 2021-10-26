@@ -12,7 +12,11 @@ const Users = () => {
     return edit ? (
       <EditUserPage userId={userId} />
     ) : (
-      <UserPage userId={userId} />
+      <div className="container">
+        <div className="row gutters-sm">
+          <UserPage userId={userId} />
+        </div>
+      </div>
     );
   }
   return <UsersListPage />;

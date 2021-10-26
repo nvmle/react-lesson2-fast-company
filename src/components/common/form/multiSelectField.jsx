@@ -12,6 +12,7 @@ const MultiSelectField = ({ options, onChange, name, label, defaultValue }) => {
       : options;
 
   const defaultValueArray =
+    defaultValue &&
     defaultValue.length > 0 &&
     defaultValue.map((option) => ({
       label: option.name,
