@@ -52,9 +52,6 @@ const EditUserPage = ({ userId }) => {
       isRequired: { message: "Электронная почта обязательна для заполнения" },
       isEmail: { message: "Электронная почта введена не корректно" }
     }
-    // profession: {
-    //   isRequired: { message: "Обязательно выберите вашу профессию" }
-    // }
   };
 
   const handleChange = (target) => {
@@ -85,17 +82,10 @@ const EditUserPage = ({ userId }) => {
       Object.keys(data.qualities[0]).length > 2
         ? data.qualities
         : data.qualities.map((userQualitie) => {
-            console.log(
-              qualitiesArray.filter(
-                (qualitie) => qualitie._id === userQualitie.value
-              )[0]
-            );
-
             return qualitiesArray.filter(
               (qualitie) => qualitie._id === userQualitie.value
             )[0];
           });
-    console.log("userQualities", userQualities);
 
     userData = {
       ...data,
@@ -116,18 +106,10 @@ const EditUserPage = ({ userId }) => {
 
     const edituserdata = editUserData();
 
-    const newData = api.users.update(userId, edituserdata);
-    console.log("updated api", newData);
+    api.users.update(userId, edituserdata);
 
     history.replace(`/users/${userId}`);
   };
-
-  //   const handleUpdate = () => {
-  //     // const newData = api.users.update(userId, data);
-  //     // console.log("newData", newData);
-
-  //     history.push(`/users/${userId}`);
-  //   };
 
   const handleGoBack = () => {
     history.push(`/users/${userId}`);
@@ -189,7 +171,6 @@ const EditUserPage = ({ userId }) => {
                 label="Выберите ваши качества:"
               />
               <button
-                // type="button"
                 onClick={handleSubmit}
                 disabled={!isValid}
                 className="btn btn-primary w-100 mx-auto"

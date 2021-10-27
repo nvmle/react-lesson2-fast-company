@@ -5,22 +5,12 @@ import PropTypes from "prop-types";
 import MeetingsCard from "../../ui/cards/meetingsCard";
 import UserCard from "../../ui/cards/userCard";
 import QualitiesCard from "../../ui/cards/qualitiesCard";
-// import Comment from "../../ui/cards/comment";
-// import CommentsList from "../../ui/cards/commentsList";
 import Comments from "../../ui/cards/comments";
 
 const UserPage = ({ userId }) => {
   const history = useHistory();
   const [user, setUser] = useState();
   const [users, setUsers] = useState();
-
-  // const [commentsForUser, setCommentsForUser] = useState();
-
-  // const [newCommentData, setNewCommentData] = useState({
-  //   userId: "",
-  //   pageId: userId,
-  //   content: ""
-  // });
 
   useEffect(() => {
     api.users.getById(userId).then((data) => {
@@ -29,47 +19,11 @@ const UserPage = ({ userId }) => {
     api.users.fetchAll().then((data) => {
       setUsers(data);
     });
-    // api.comments.fetchCommentsForUser(userId).then((data) => {
-    //   setCommentsForUser(data);
-    // });
   }, []);
 
   const handleEditUser = () => {
     history.push(`/users/${userId}/edit`);
   };
-
-  // const removeComment = (commentId) => {
-  //   api.comments.remove(commentId);
-
-  //   api.comments.fetchCommentsForUser(userId).then((data) => {
-  //     setCommentsForUser(data);
-  //   });
-  // };
-
-  // const addNewComment = (data) => {
-  //   if (data.userId && data.content) {
-  //     api.comments.add(data);
-  //     setNewCommentData({ userId: "", pageId: userId, content: "" });
-
-  //     api.comments.fetchCommentsForUser(userId).then((data) => {
-  //       setCommentsForUser(data);
-  //     });
-  //   }
-  // };
-
-  // const handleChange = (target) => {
-  //   if (target.target?.name === "exampleFormControlTextarea1") {
-  //     setNewCommentData((prevState) => ({
-  //       ...prevState,
-  //       content: target.target.value
-  //     }));
-  //   } else {
-  //     setNewCommentData((prevState) => ({
-  //       ...prevState,
-  //       [target.name]: target.value
-  //     }));
-  //   }
-  // };
 
   if (user && users) {
     return (
@@ -86,23 +40,6 @@ const UserPage = ({ userId }) => {
         </div>
 
         <div className="col-md-8">
-          {/* {users && (
-            <Comment
-              data={newCommentData}
-              options={users}
-              userId={userId}
-              addNewComment={addNewComment}
-              onChange={handleChange}
-            />
-          )}
-
-          {commentsForUser && users && (
-            <CommentsList
-              users={users}
-              comments={commentsForUser}
-              removeComment={removeComment}
-            />
-          )} */}
           <Comments userId={userId} users={users} />
         </div>
       </>
