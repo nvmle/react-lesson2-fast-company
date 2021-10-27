@@ -5,21 +5,22 @@ import PropTypes from "prop-types";
 import MeetingsCard from "../../ui/cards/meetingsCard";
 import UserCard from "../../ui/cards/userCard";
 import QualitiesCard from "../../ui/cards/qualitiesCard";
-import Comment from "../../ui/cards/comment";
-import CommentsList from "../../ui/cards/commentsList";
+// import Comment from "../../ui/cards/comment";
+// import CommentsList from "../../ui/cards/commentsList";
+import Comments from "../../ui/cards/comments";
 
 const UserPage = ({ userId }) => {
   const history = useHistory();
   const [user, setUser] = useState();
   const [users, setUsers] = useState();
 
-  const [commentsForUser, setCommentsForUser] = useState();
+  // const [commentsForUser, setCommentsForUser] = useState();
 
-  const [newCommentData, setNewCommentData] = useState({
-    userId: "",
-    pageId: userId,
-    content: ""
-  });
+  // const [newCommentData, setNewCommentData] = useState({
+  //   userId: "",
+  //   pageId: userId,
+  //   content: ""
+  // });
 
   useEffect(() => {
     api.users.getById(userId).then((data) => {
@@ -28,53 +29,49 @@ const UserPage = ({ userId }) => {
     api.users.fetchAll().then((data) => {
       setUsers(data);
     });
-    api.comments.fetchCommentsForUser(userId).then((data) => {
-      setCommentsForUser(data);
-    });
+    // api.comments.fetchCommentsForUser(userId).then((data) => {
+    //   setCommentsForUser(data);
+    // });
   }, []);
-
-  console.log("commentsForUser", commentsForUser);
 
   const handleEditUser = () => {
     history.push(`/users/${userId}/edit`);
   };
 
-  console.log("userPage", user);
+  // const removeComment = (commentId) => {
+  //   api.comments.remove(commentId);
 
-  const removeComment = (commentId) => {
-    console.log("commentId", commentId);
+  //   api.comments.fetchCommentsForUser(userId).then((data) => {
+  //     setCommentsForUser(data);
+  //   });
+  // };
 
-    api.comments.remove(commentId);
+  // const addNewComment = (data) => {
+  //   if (data.userId && data.content) {
+  //     api.comments.add(data);
+  //     setNewCommentData({ userId: "", pageId: userId, content: "" });
 
-    api.comments.fetchCommentsForUser(userId).then((data) => {
-      setCommentsForUser(data);
-    });
-  };
+  //     api.comments.fetchCommentsForUser(userId).then((data) => {
+  //       setCommentsForUser(data);
+  //     });
+  //   }
+  // };
 
-  const addNewComment = (data) => {
-    api.comments.add(data);
-    setNewCommentData({ userId: "", pageId: userId, content: "" });
+  // const handleChange = (target) => {
+  //   if (target.target?.name === "exampleFormControlTextarea1") {
+  //     setNewCommentData((prevState) => ({
+  //       ...prevState,
+  //       content: target.target.value
+  //     }));
+  //   } else {
+  //     setNewCommentData((prevState) => ({
+  //       ...prevState,
+  //       [target.name]: target.value
+  //     }));
+  //   }
+  // };
 
-    // api.comments.fetchCommentsForUser(userId).then((data) => {
-    //   setCommentsForUser(data);
-    // });
-  };
-
-  const handleChange = (target) => {
-    if (target.target?.name === "exampleFormControlTextarea1") {
-      setNewCommentData((prevState) => ({
-        ...prevState,
-        content: target.target.value
-      }));
-    } else {
-      setNewCommentData((prevState) => ({
-        ...prevState,
-        [target.name]: target.value
-      }));
-    }
-  };
-
-  if (user) {
+  if (user && users) {
     return (
       <>
         <div className="col-md-4 mb-3">
@@ -89,7 +86,7 @@ const UserPage = ({ userId }) => {
         </div>
 
         <div className="col-md-8">
-          {users && (
+          {/* {users && (
             <Comment
               data={newCommentData}
               options={users}
@@ -105,7 +102,8 @@ const UserPage = ({ userId }) => {
               comments={commentsForUser}
               removeComment={removeComment}
             />
-          )}
+          )} */}
+          <Comments userId={userId} users={users} />
         </div>
       </>
     );

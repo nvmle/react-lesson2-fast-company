@@ -1,24 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import SelectForm from "../../common/form/selectForm";
+import TextAreaField from "../../common/form/textAreaField";
+import api from "../../../API";
 
-const Comment = ({ options, userId, addNewComment, onChange, data }) => {
+const Comment = ({ options, addNewComment, userId }) => {
+  const [newCommentData, setNewCommentData] = useState({
+    userId: "",
+    pageId: userId,
+    content: ""
+  });
+
   options = options.map((option) => ({ name: option.name, value: option._id }));
 
   const handleChange = (target) => {
-    console.log("target handlechange", target);
-
-    onChange(target);
-
-    // if (target.target?.name === "exampleFormControlTextarea1") {
-    //   setData((prevState) => ({ ...prevState, content: target.target.value }));
-    // } else {
-    //   setData((prevState) => ({ ...prevState, [target.name]: target.value }));
-    // }
+    setNewCommentData((prevState) => ({
+      ...prevState,
+      [target.name]: target.value
+    }));
   };
 
   const handlePublish = () => {
-    addNewComment(data);
+    if (newCommentData.userId && newCommentData.content) {
+      api.comments.add(newCommentData);
+
+      addNewComment();
+      setNewCommentData({ userId: "", pageId: userId, content: "" });
+    }
   };
 
   return (
@@ -29,24 +37,19 @@ const Comment = ({ options, userId, addNewComment, onChange, data }) => {
           <div className="mb-4">
             <SelectForm
               name="userId"
-              value={data.userId}
+              value={newCommentData.userId}
               onChange={handleChange}
               defaultOption="Выберите пользователя"
               options={options}
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="exampleFormControlTextarea1" className="form-label">
-              Сообщение
-            </label>
-            <textarea
-              className="form-control"
-              id="exampleFormControlTextarea1"
+            <TextAreaField
+              label="Сообщение"
               name="exampleFormControlTextarea1"
-              rows="3"
-              value={data.content}
               onChange={handleChange}
-            ></textarea>
+              value={newCommentData.content}
+            />
           </div>
           <button
             type="submit"
@@ -62,10 +65,8 @@ const Comment = ({ options, userId, addNewComment, onChange, data }) => {
 };
 Comment.propTypes = {
   options: PropTypes.array,
-  userId: PropTypes.string,
   addNewComment: PropTypes.func,
-  onChange: PropTypes.func,
-  data: PropTypes.obj
+  userId: PropTypes.string
 };
 
 export default Comment;

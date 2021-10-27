@@ -1,25 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { takeDate } from "../../../utils/commentDate";
+import _ from "lodash";
 
 const CommentsList = ({ users, comments, removeComment }) => {
-  console.log("users comments++", users);
-
-  const createdAt = (createdAt) => {
-    return createdAt;
-  };
-
   const takeNameByUserId = (userId) => {
     return users.filter((user) => user._id === userId)[0].name;
   };
 
-  // if (comments && users) {
+  const sortedComments = _.orderBy(comments, ["created_at"], ["desc"]);
+
   return (
     <div className="card mb-3">
       <div className="card-body">
         <h2>Comments</h2>
         <hr />
-
-        {comments.map((comment) => (
+        {sortedComments.map((comment) => (
           <div className="bg-light card-body mb-3" key={comment._id}>
             <div className="row">
               <div className="col">
@@ -41,7 +37,8 @@ const CommentsList = ({ users, comments, removeComment }) => {
                         <p className="mb-1">
                           {takeNameByUserId(comment.userId)}
                           <span className="small">
-                            {createdAt(comment.created_at)}
+                            {" - "}
+                            {takeDate(comment.created_at)}
                           </span>
                         </p>
                         <button
@@ -62,8 +59,6 @@ const CommentsList = ({ users, comments, removeComment }) => {
       </div>
     </div>
   );
-  // }
-  // return "Loading..";
 };
 CommentsList.propTypes = {
   userId: PropTypes.string,
