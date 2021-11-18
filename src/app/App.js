@@ -4,8 +4,9 @@ import NavBar from "../app/components/ui/navBar";
 import Main from "../app/layouts/main";
 import Login from "../app/layouts/login";
 import Users from "../app/layouts/users";
-import { ToastContainer } from "react-toastify";
 import { ProfessionProvider } from "./hooks/useProfession";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   return (
