@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import api from "../../../API";
 import { validator } from "../../../utils/validator";
@@ -9,7 +9,8 @@ import SelectForm from "../../common/form/selectForm";
 import RadioField from "../../common/form/radioField";
 import MultiSelectField from "../../common/form/multiSelectField";
 
-const EditUserPage = ({ userId }) => {
+const EditUserPage = () => {
+  const { userId } = useParams();
   const history = useHistory();
 
   const [data, setData] = useState();
