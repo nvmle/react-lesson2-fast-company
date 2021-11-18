@@ -4,7 +4,6 @@ import UsersListPage from "../components/page/usersListPage";
 import EditUserPage from "../components/page/editUserPage";
 import { useParams } from "react-router";
 import UserProvider from "../hooks/useUsers";
-import { QualityProvider } from "../hooks/useQuality";
 
 const Users = () => {
   const params = useParams();
@@ -20,9 +19,7 @@ const Users = () => {
             <UserPage userId={userId} />
           )
         ) : (
-          <QualityProvider>
-            <UsersListPage />
-          </QualityProvider>
+          <UsersListPage />
         )}
       </UserProvider>
     </>

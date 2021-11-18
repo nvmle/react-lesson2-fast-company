@@ -35,7 +35,6 @@ const UsersListPage = () => {
   // const [users, setUsers] = useState();
 
   const { users } = useUsers();
-  console.log(users);
 
   const handleDelete = (userId) => {
     // setUsers(

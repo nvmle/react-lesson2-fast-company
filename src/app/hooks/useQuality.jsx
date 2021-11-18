@@ -22,18 +22,18 @@ export const QualityProvider = ({ children }) => {
   }, [error]);
 
   useEffect(() => {
-    getQualitiesList();
-  }, []);
+    const getQualities = async () => {
+      try {
+        const { content } = await qualityService.fetchAll();
+        setQualities(content);
+        setIsLoading(false);
+      } catch (error) {
+        errorCatcher(error);
+      }
+    };
 
-  async function getQualitiesList() {
-    try {
-      const { content } = await qualityService.fetchAll();
-      setQualities(content);
-      setIsLoading(false);
-    } catch (error) {
-      errorCatcher(error);
-    }
-  }
+    getQualities();
+  }, []);
 
   function getQuality(id) {
     return qualities.find((q) => q._id === id);
