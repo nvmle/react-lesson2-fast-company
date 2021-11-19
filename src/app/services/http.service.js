@@ -1,11 +1,35 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import config from "../config.json";
+import configFile from "../config.json";
 
-axios.defaults.baseURL = config.apiEndpoint;
+axios.defaults.baseURL = configFile.apiEndpoint;
+
+axios.interceptors.request.use(
+  (config) => {
+    if (configFile.isFirebase) {
+      const containsSlash = /\/$/gi.test(config.url);
+      config.url =
+        (containsSlash ? config.url.slice(0, -1) : config.url) + ".json";
+    }
+
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+function transformData(data) {
+  return data ? Object.keys(data).map((key) => ({ ...data[key] })) : [];
+}
 
 axios.interceptors.response.use(
-  (res) => res,
+  (res) => {
+    if (configFile.isFirebase) {
+      res.data = { content: transformData(res.data) };
+    }
+    return res;
+  },
   function (error) {
     const expectedError =
       error.response &&
