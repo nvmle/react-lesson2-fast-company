@@ -23,8 +23,6 @@ const SelectForm = ({
   };
 
   const handleChange = ({ target }) => {
-    console.log("target selectForm ", target.value);
-
     onChange({ name: target.name, value: target.value });
   };
 
@@ -46,7 +44,7 @@ const SelectForm = ({
         {optionsArray &&
           optionsArray.map((option) => (
             <option value={option.value} key={option.value}>
-              {option.name}
+              {option.label}
             </option>
           ))}
       </select>
