@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/react-lesson2-fast-company/static/css/main.4a4137e4.chunk.css",
-    "main.js": "/react-lesson2-fast-company/static/js/main.18a367c7.chunk.js",
-    "main.js.map": "/react-lesson2-fast-company/static/js/main.18a367c7.chunk.js.map",
-    "runtime-main.js": "/react-lesson2-fast-company/static/js/runtime-main.4fcf2235.js",
-    "runtime-main.js.map": "/react-lesson2-fast-company/static/js/runtime-main.4fcf2235.js.map",
-    "static/css/2.e6c1e8c5.chunk.css": "/react-lesson2-fast-company/static/css/2.e6c1e8c5.chunk.css",
-    "static/js/2.ec510438.chunk.js": "/react-lesson2-fast-company/static/js/2.ec510438.chunk.js",
-    "static/js/2.ec510438.chunk.js.map": "/react-lesson2-fast-company/static/js/2.ec510438.chunk.js.map",
-    "static/js/3.779522e5.chunk.js": "/react-lesson2-fast-company/static/js/3.779522e5.chunk.js",
-    "static/js/3.779522e5.chunk.js.map": "/react-lesson2-fast-company/static/js/3.779522e5.chunk.js.map",
+    "main.js": "/react-lesson2-fast-company/static/js/main.14872041.chunk.js",
+    "main.js.map": "/react-lesson2-fast-company/static/js/main.14872041.chunk.js.map",
+    "runtime-main.js": "/react-lesson2-fast-company/static/js/runtime-main.a41b8a01.js",
+    "runtime-main.js.map": "/react-lesson2-fast-company/static/js/runtime-main.a41b8a01.js.map",
+    "static/css/2.035d2213.chunk.css": "/react-lesson2-fast-company/static/css/2.035d2213.chunk.css",
+    "static/js/2.a31023cb.chunk.js": "/react-lesson2-fast-company/static/js/2.a31023cb.chunk.js",
+    "static/js/2.a31023cb.chunk.js.map": "/react-lesson2-fast-company/static/js/2.a31023cb.chunk.js.map",
+    "static/js/3.4281c4c5.chunk.js": "/react-lesson2-fast-company/static/js/3.4281c4c5.chunk.js",
+    "static/js/3.4281c4c5.chunk.js.map": "/react-lesson2-fast-company/static/js/3.4281c4c5.chunk.js.map",
     "index.html": "/react-lesson2-fast-company/index.html",
-    "static/css/2.e6c1e8c5.chunk.css.map": "/react-lesson2-fast-company/static/css/2.e6c1e8c5.chunk.css.map",
+    "static/css/2.035d2213.chunk.css.map": "/react-lesson2-fast-company/static/css/2.035d2213.chunk.css.map",
     "static/css/main.4a4137e4.chunk.css.map": "/react-lesson2-fast-company/static/css/main.4a4137e4.chunk.css.map",
-    "static/js/2.ec510438.chunk.js.LICENSE.txt": "/react-lesson2-fast-company/static/js/2.ec510438.chunk.js.LICENSE.txt"
+    "static/js/2.a31023cb.chunk.js.LICENSE.txt": "/react-lesson2-fast-company/static/js/2.a31023cb.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.4fcf2235.js",
-    "static/css/2.e6c1e8c5.chunk.css",
-    "static/js/2.ec510438.chunk.js",
+    "static/js/runtime-main.a41b8a01.js",
+    "static/css/2.035d2213.chunk.css",
+    "static/js/2.a31023cb.chunk.js",
     "static/css/main.4a4137e4.chunk.css",
-    "static/js/main.18a367c7.chunk.js"
+    "static/js/main.14872041.chunk.js"
   ]
 }
