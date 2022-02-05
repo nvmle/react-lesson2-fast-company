@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import api from "../../../API";
 import _ from "lodash";
 import { useLocation } from "react-router";
 import query from "query-string";
@@ -10,14 +9,19 @@ import GroupList from "../../common/groupList";
 import SearchStatus from "../../ui/searchStatus";
 import UsersTable from "../../ui/usersTable";
 import { useUsers } from "../../../hooks/useUsers";
+import { useProfession } from "../../../hooks/useProfession";
+import { useAuth } from "../../../hooks/useAuth";
 
 const UsersListPage = () => {
+  const { isLoading: professionsLoading, professions } = useProfession();
+  const { currentUser } = useAuth();
+
   const [currentPage, setCurrentPage] = useState(1);
-  const [professions, setProfessions] = useState();
   const [selectedProf, setSelectedProf] = useState();
   const [searchData, setSearchData] = useState("");
 
   const location = useLocation();
+  const pageSize = 8;
 
   const search = query.parse(location.search);
 
@@ -30,9 +34,6 @@ const UsersListPage = () => {
     path: search.sortBy,
     order: search.order
   });
-  const pageSize = 8;
-
-  // const [users, setUsers] = useState();
 
   const { users } = useUsers();
 
@@ -58,12 +59,6 @@ const UsersListPage = () => {
   };
 
   useEffect(() => {
-    api.professions.fetchAll().then((data) => {
-      setProfessions(data);
-    });
-  }, []);
-
-  useEffect(() => {
     setCurrentPage(1);
   }, [selectedProf, searchData]);
 
@@ -84,7 +79,8 @@ const UsersListPage = () => {
     setSelectedProf(undefined);
     setSearchData(e.target.value);
   };
-  if (users) {
+
+  function filterUsers() {
     const filteredUsers = searchData
       ? users.filter((user) => user.name.toLowerCase().includes(searchData))
       : selectedProf
@@ -94,17 +90,23 @@ const UsersListPage = () => {
         )
       : users;
 
-    const count = Array.isArray(filteredUsers) && filteredUsers.length;
-    const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order]);
-    const usersCrop = paginate(sortedUsers, currentPage, pageSize);
+    return filteredUsers.filter((u) => u._id !== currentUser._id);
+  }
 
-    const clearFilter = () => {
-      setSelectedProf();
-    };
+  const filteredUsers = filterUsers();
 
+  const count = Array.isArray(filteredUsers) && filteredUsers.length;
+  const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order]);
+  const usersCrop = paginate(sortedUsers, currentPage, pageSize);
+
+  const clearFilter = () => {
+    setSelectedProf();
+  };
+
+  if (users) {
     return (
       <div className="d-flex">
-        {professions && (
+        {professions && !professionsLoading && (
           <div className="d-flex flex-column flex-shrink-0 p-3">
             <GroupList
               selectedItem={selectedProf}

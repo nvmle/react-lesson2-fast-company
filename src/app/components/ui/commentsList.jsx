@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { takeDate } from "../../../utils/commentDate";
+import { takeDate } from "../../utils/displayDate";
 import _ from "lodash";
 
 const CommentsList = ({ users, comments, removeComment }) => {
