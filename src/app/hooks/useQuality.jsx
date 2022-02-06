@@ -48,7 +48,7 @@ export const QualityProvider = ({ children }) => {
 
   return (
     <QualityContext.Provider value={{ qualities, getQuality, isLoading }}>
-      {children}
+      {!isLoading && children}
     </QualityContext.Provider>
   );
 };

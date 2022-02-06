@@ -5,6 +5,7 @@ import { useAuth } from "../../hooks/useAuth";
 
 const ProtectedRoute = ({ component: Component, children, ...rest }) => {
   const { currentUser } = useAuth();
+
   return (
     <Route
       {...rest}
@@ -13,7 +14,7 @@ const ProtectedRoute = ({ component: Component, children, ...rest }) => {
           return (
             <Redirect
               to={{
-                pathname: "login",
+                pathname: "/login",
                 state: {
                   from: props.location
                 }
