@@ -11,14 +11,6 @@ const MultiSelectField = ({ options, onChange, name, label, defaultValue }) => {
         }))
       : options;
 
-  const defaultValueArray =
-    defaultValue &&
-    defaultValue.length > 0 &&
-    defaultValue.map((option) => ({
-      label: option.name,
-      value: option._id
-    }));
-
   const handleChange = (value) => {
     onChange({ name: name, value });
   };
@@ -27,7 +19,7 @@ const MultiSelectField = ({ options, onChange, name, label, defaultValue }) => {
     <div className="mb-4">
       <label className="form-label">{label}</label>
       <Select
-        defaultValue={defaultValueArray}
+        defaultValue={defaultValue}
         isMulti
         closeMenuOnSelect={false}
         options={optionsArray}

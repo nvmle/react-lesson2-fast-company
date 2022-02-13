@@ -5,13 +5,13 @@ import SelectForm from "../common/form/selectForm";
 import RadioField from "../common/form/radioField";
 import MultiSelectField from "../common/form/multiSelectField";
 import CheckBoxField from "../common/form/checkBoxField";
-import { useQuality } from "../../hooks/useQuality";
-import { useProfession } from "../../hooks/useProfession";
-import { useAuth } from "../../hooks/useAuth";
-import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { getQualities } from "../../store/qualities";
+import { getProfessions } from "../../store/professions";
+import { signUp } from "../../store/users";
 
 const RegisterForm = () => {
-  const history = useHistory();
+  const dispatch = useDispatch();
 
   const [data, setData] = useState({
     email: "",
@@ -23,15 +23,11 @@ const RegisterForm = () => {
     license: false
   });
 
-  const { signUp } = useAuth();
-
-  const { qualities } = useQuality();
-  // console.log(qualities);
+  const qualities = useSelector(getQualities());
 
   const qualitiesList = qualities.map((q) => ({ label: q.name, value: q._id }));
 
-  const { professions } = useProfession();
-  // console.log(professions);
+  const professions = useSelector(getProfessions());
 
   const professionsList = professions.map((p) => ({
     label: p.name,
@@ -79,18 +75,14 @@ const RegisterForm = () => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const isValid = validate();
     if (!isValid) return;
     const newData = { ...data, qualities: data.qualities.map((q) => q.value) };
 
-    try {
-      await signUp(newData);
-      history.push("/");
-    } catch (error) {
-      setErrors(error);
-    }
+    dispatch(signUp(newData));
+    // await signUp(newData);
   };
 
   return (
